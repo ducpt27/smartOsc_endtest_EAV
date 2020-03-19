@@ -45,8 +45,7 @@ abstract class BaseController
         if ($index == 0) {
             $directory_files = [];
         }
-        
-        $errors = array();
+
         $file_name = $file['name'][$index];
         $file_size = $file['size'][$index];
         $file_tmp = $file['tmp_name'][$index];
@@ -56,25 +55,21 @@ abstract class BaseController
         $extensions = array("jpeg", "jpg", "png");
 
         if (in_array($file_ext, $extensions) === false){
-            $errors[] = "Extension not allowed, please choose a JPEG, JPG, PNG file.";
+            return "Extension not allowed, please choose a JPEG, JPG, PNG file.";
         }
 
         if ($file_size > 2097152) {
-            $errors[] = 'File size must be excately 2 MB';
+            return 'File size must be excately 2 MB';
         }
 
-        if (empty($errors) == true) {
-            while (true) {
-                $file_name_new = uniqid($tmp[0], true);
-                $directory_file_asset = $this->asset("upload/image/" . $file_name_new) . '.' . $file_ext;
-                $directory_file = "upload/image/" . $file_name_new . '.' . $file_ext;
-                if (!file_exists(sys_get_temp_dir() . $directory_file_asset)) break;
-            }
-            move_uploaded_file($file_tmp, $directory_file_asset);
-            $directory_files[] = $directory_file;
-        } else {
-            print_r($errors);
+        while (true) {
+            $file_name_new = uniqid($tmp[0], true);
+            $directory_file_asset = $this->asset("upload/image/" . $file_name_new) . '.' . $file_ext;
+            $directory_file = "upload/image/" . $file_name_new . '.' . $file_ext;
+            if (!file_exists(sys_get_temp_dir() . $directory_file_asset)) break;
         }
+        move_uploaded_file($file_tmp, $directory_file_asset);
+        $directory_files[] = $directory_file;
 
         $index++;
         if (isset($file['name'][$index])) {

@@ -12,14 +12,13 @@ $(document).ready(function() {
                 contentType: false,
                 processData: false,
                 success: function(html) {
-                    switch(html) {
-                        case 'success':
-                            resetForm();
-                            alert('success');
-                            break;
-                        case 'err':
-                            alert('err');
-                            break;
+                    resetForm();
+                    if (html == "success") {
+                        $('.notify').addClass('success');
+                        $('.notify').text("Add product success");
+                    } else {
+                        $('.notify').addClass('err');
+                        $('.notify').text(html);
                     }
                 }
             });

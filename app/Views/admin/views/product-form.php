@@ -10,6 +10,8 @@
 </header>
 <div class="page-wrapper" style="padding: 90px 0 30px 0">
     <div class="wrapper wrapper--w900">
+        <div class="notify">
+        </div>
         <form method="POST" action="?scope=product&action=add" enctype="multipart/form-data" name="form-product">
             <div class="card card-6">
                 <div class="card-body">

@@ -39,8 +39,7 @@ class PageController extends BaseController
             $num = 6;
         }
 
-        //TODO inject data filter
-        $data = $_POST; // try
+        $data = $_POST;
 
         $dataFilter = [];
         foreach ($data as $id => $value) {

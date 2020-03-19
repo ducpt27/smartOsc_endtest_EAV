@@ -14,11 +14,15 @@ class ProductController extends BaseController
             if (isset($_FILES['image'])) {
                 $files_image = $this->uploadFileImage($_FILES['image']);
             }
+            if (!is_array($files_image)) {
+                echo $files_image;
+                return;
+            }
             $product = new Product($_POST);
             $product->setData('image', $files_image);
             $last_id = $product->save();
             if ($last_id < 1) {
-                echo "failed";
+                echo "Add product failed";
             } else {
                 echo "success";
             }

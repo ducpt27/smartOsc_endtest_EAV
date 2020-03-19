@@ -33,7 +33,7 @@ abstract class AbstractEntity extends AbstractModel
 
         $tableValueType = ['varchar', 'int', 'datetime', 'decimal', 'text'];
         while ($item = current($tableValueType)) {
-            $valueModel = FactoryValue::createValueModel(static::class, $item);
+            $valueModel = Factory::createValueModel(static::class, $item);
             if (is_null($valueModel)) {
                 next($tableValueType);
             }
@@ -73,7 +73,7 @@ abstract class AbstractEntity extends AbstractModel
         }
 
         if ($dataCondition == null) {
-            return parent::getByAttribute($dataCondition, $page, $total);
+            return parent::getByAttribute(null, $page, $total);
         }
 
         $index = ($page - 1) * $total;
@@ -90,7 +90,7 @@ abstract class AbstractEntity extends AbstractModel
             }
 
             $attribute = Attribute::getById($item[$primaryKey_attribute])[0];
-            $valueModel = FactoryValue::createValueModel(static::class, $attribute['backend_type']);
+            $valueModel = Factory::createValueModel(static::class, $attribute['backend_type']);
             if (is_null($valueModel)) {
                 continue;
             }
@@ -145,7 +145,7 @@ abstract class AbstractEntity extends AbstractModel
         }
 
         foreach ($list as $item) {
-            $valueModel = FactoryValue::createValueModel(static::class, $item['backend_type']);
+            $valueModel = Factory::createValueModel(static::class, $item['backend_type']);
             if (is_null($valueModel)) {
                 continue;
             }
